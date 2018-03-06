@@ -6,9 +6,12 @@ import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.example.jek.myvkappforme.MyApplication;
 import com.example.jek.myvkappforme.R;
 import com.example.jek.myvkappforme.common.manager.MyFragmentManager;
 import com.example.jek.myvkappforme.ui.fragment.BaseFragment;
+
+import javax.inject.Inject;
 
 /**
  * Created by jek on 04.03.2018.
@@ -16,15 +19,15 @@ import com.example.jek.myvkappforme.ui.fragment.BaseFragment;
 
 public abstract class BaseActivity extends MvpAppCompatActivity {
 
+    @Inject
     MyFragmentManager myFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyApplication.getApplicationComponent().inject(this);
 
         setContentView(R.layout.activity_base);
-
-        myFragmentManager = new MyFragmentManager();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
