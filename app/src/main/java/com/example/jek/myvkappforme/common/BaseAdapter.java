@@ -1,6 +1,5 @@
 package com.example.jek.myvkappforme.common;
 
-
 import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ public class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder<BaseViewMod
     }
 
     public void registerTypeInstance(BaseViewModel item) {
-        if (!mTypeInstances.containsKey(item.getType().getValue())) {
+        if (!mTypeInstances.containsKey(item.getType())) {
             mTypeInstances.put(item.getType().getValue(), item);
         }
     }
@@ -76,4 +75,5 @@ public class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder<BaseViewMod
     public BaseViewModel getItem(int position) {
         return list.get(position);
     }
+
 }

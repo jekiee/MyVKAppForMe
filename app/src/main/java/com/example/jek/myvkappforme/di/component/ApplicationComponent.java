@@ -6,17 +6,15 @@ import com.example.jek.myvkappforme.di.module.RestModule;
 import com.example.jek.myvkappforme.ui.activity.BaseActivity;
 import com.example.jek.myvkappforme.ui.activity.MainActivity;
 import com.example.jek.myvkappforme.ui.fragment.NewsFeedFragment;
+import com.example.jek.myvkappforme.ui.holder.NewsItemBodyHolder;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
 
-/**
- * Created by jek on 06.03.2018.
- */
-
 @Singleton
-@Component(modules = {ApplicationModule.class, ManagerModule.class, RestModule.class})
+@Component(
+        modules = {ApplicationModule.class, ManagerModule.class, RestModule.class})
 public interface ApplicationComponent {
 
     //activities
@@ -26,4 +24,7 @@ public interface ApplicationComponent {
 
     //fragments
     void inject(NewsFeedFragment fragment);
+
+    //holders
+    void inject(NewsItemBodyHolder holder);
 }

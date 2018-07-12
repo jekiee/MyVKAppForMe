@@ -7,15 +7,10 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by jek on 06.03.2018.
- */
-
 @Module
 public class ManagerModule {
-
-    @Singleton
     @Provides
+    @Singleton
     MyFragmentManager provideMyFragmentManager() {
         return new MyFragmentManager();
     }

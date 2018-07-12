@@ -8,10 +8,6 @@ import android.view.ViewGroup;
 import com.example.jek.myvkappforme.R;
 import com.example.jek.myvkappforme.ui.holder.BaseViewHolder;
 
-/**
- * Created by jek on 27.03.2018.
- */
-
 public abstract class BaseViewModel {
 
     public abstract LayoutTypes getType();

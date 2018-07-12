@@ -1,6 +1,7 @@
 package com.example.jek.myvkappforme;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.example.jek.myvkappforme.di.component.ApplicationComponent;
 import com.example.jek.myvkappforme.di.component.DaggerApplicationComponent;
@@ -18,9 +19,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         initComponent();
-
         VKSdk.initialize(this);
     }
 

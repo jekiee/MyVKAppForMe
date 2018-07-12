@@ -8,26 +8,24 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by jek on 06.03.2018.
- */
-
 @Module
 public class RestModule {
     private RestClient mRestClient;
+
 
     public RestModule() {
         mRestClient = new RestClient();
     }
 
-    @Singleton
+
     @Provides
+    @Singleton
     public RestClient provideRestClient() {
         return mRestClient;
     }
 
-    @Singleton
     @Provides
+    @Singleton
     public WallApi provideWallApi() {
         return mRestClient.createService(WallApi.class);
     }

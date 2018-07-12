@@ -11,10 +11,10 @@ import com.example.jek.myvkappforme.mvp.view.MainView;
 
 @InjectViewState
 public class MainPresenter extends MvpPresenter<MainView> {
-    public void checkAuth(){
-        if(!CurrentUser.authorized()){
+    public void checkAuth() {
+        if (!CurrentUser.isAuthorized()) {
             getViewState().startSignIn();
-        } else{
+        } else {
             getViewState().signedIn();
         }
     }

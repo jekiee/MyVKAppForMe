@@ -19,6 +19,7 @@ import javax.inject.Inject;
 
 public abstract class BaseActivity extends MvpAppCompatActivity {
 
+
     @Inject
     MyFragmentManager myFragmentManager;
 

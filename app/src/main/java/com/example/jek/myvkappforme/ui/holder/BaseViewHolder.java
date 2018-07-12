@@ -5,10 +5,6 @@ import android.view.View;
 
 import com.example.jek.myvkappforme.model.view.BaseViewModel;
 
-/**
- * Created by jek on 26.03.2018.
- */
-
 public abstract class BaseViewHolder<Item extends BaseViewModel> extends RecyclerView.ViewHolder {
 
     public BaseViewHolder(View itemView) {

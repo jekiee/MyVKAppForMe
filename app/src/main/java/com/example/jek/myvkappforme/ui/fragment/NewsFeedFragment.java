@@ -9,12 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.jek.myvkappforme.common.BaseAdapter;
-
 import com.example.jek.myvkappforme.MyApplication;
 import com.example.jek.myvkappforme.R;
+import com.example.jek.myvkappforme.common.BaseAdapter;
+import com.example.jek.myvkappforme.common.utils.VkListHelper;
 import com.example.jek.myvkappforme.model.WallItem;
+import com.example.jek.myvkappforme.model.view.BaseViewModel;
 import com.example.jek.myvkappforme.model.view.NewsItemBodyViewModel;
+import com.example.jek.myvkappforme.model.view.NewsItemHeaderViewModel;
 import com.example.jek.myvkappforme.rest.api.WallApi;
 import com.example.jek.myvkappforme.rest.model.request.WallGetRequestModel;
 import com.example.jek.myvkappforme.rest.model.response.GetWallResponse;
@@ -39,7 +41,6 @@ public class NewsFeedFragment extends BaseFragment {
     RecyclerView mRecyclerView;
 
     BaseAdapter mAdapter;
-
 
     public NewsFeedFragment() {
         // Required empty public constructor
@@ -67,12 +68,13 @@ public class NewsFeedFragment extends BaseFragment {
         mWallApi.get(new WallGetRequestModel(-86529522).toMap()).enqueue(new Callback<GetWallResponse>() {
             @Override
             public void onResponse(Call<GetWallResponse> call, Response<GetWallResponse> response) {
-                List<NewsItemBodyViewModel> list = new ArrayList<>();
-                for (WallItem item : response.body().response.getItems()) {
+                List<WallItem> wallItems = VkListHelper.getWallList(response.body().response);
+                List<BaseViewModel> list = new ArrayList<>();
+                for (WallItem item : wallItems) {
+                    list.add(new NewsItemHeaderViewModel(item));
                     list.add(new NewsItemBodyViewModel(item));
                 }
                 mAdapter.addItems(list);
-                Toast.makeText(getActivity(), "Likes: " + response.body().response.getItems().get(0).getLikes().getCount(), Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -102,4 +104,3 @@ public class NewsFeedFragment extends BaseFragment {
         return R.string.screen_name_news;
     }
 }
-

@@ -18,8 +18,6 @@ import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
 public class MainActivity extends BaseActivity implements MainView {
-//    static final String TAG = "MainActivity";
-
 
     @InjectPresenter
     MainPresenter mPresenter;
@@ -31,11 +29,6 @@ public class MainActivity extends BaseActivity implements MainView {
         MyApplication.getApplicationComponent().inject(this);
 
         mPresenter.checkAuth();
-
-//        Получение отпечатка сертификата приложения:
-//        String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
-//        Log.d(TAG, "Fingerprint: " + Arrays.toString(fingerprints));
-
     }
 
     @Override

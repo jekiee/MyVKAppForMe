@@ -3,19 +3,30 @@ package com.example.jek.myvkappforme.model.view;
 import android.view.View;
 
 import com.example.jek.myvkappforme.model.WallItem;
-import com.example.jek.myvkappforme.ui.holder.BaseViewHolder;
 import com.example.jek.myvkappforme.ui.holder.NewsItemBodyHolder;
 
 public class NewsItemBodyViewModel extends BaseViewModel {
-
     private int mId;
 
     private String mText;
 
+    private String mAttachmentString;
+
+    private boolean mIsRepost;
+
     public NewsItemBodyViewModel(WallItem wallItem) {
         this.mId = wallItem.getId();
-        this.mText = wallItem.getText();
+        this.mIsRepost = wallItem.haveSharedRepost();
+
+        if (mIsRepost) {
+            this.mText = wallItem.getSharedRepost().getText();
+            this.mAttachmentString = wallItem.getSharedRepost().getAttachmentsString();
+        } else {
+            this.mText = wallItem.getText();
+            this.mAttachmentString = wallItem.getAttachmentsString();
+        }
     }
+
 
     @Override
     public LayoutTypes getType() {
@@ -23,15 +34,20 @@ public class NewsItemBodyViewModel extends BaseViewModel {
     }
 
     @Override
-    protected BaseViewHolder onCreateViewHolder(View view) {
+    public NewsItemBodyHolder onCreateViewHolder(View view) {
         return new NewsItemBodyHolder(view);
+    }
+
+
+    public String getText() {
+        return mText;
     }
 
     public int getId() {
         return mId;
     }
 
-    public String getText() {
-        return mText;
+    public String getmAttachmentString() {
+        return mAttachmentString;
     }
 }

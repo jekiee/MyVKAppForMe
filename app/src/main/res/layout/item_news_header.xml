@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+
+
     android:clickable="true"
     android:focusable="true">
 
@@ -16,25 +18,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/civ_profile_image"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginLeft="16dp"
-                android:src="@color/colorAccent" />
+                tools:src="@color/colorAccent" />
 
             <TextView
                 android:id="@+id/tv_profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+
                 android:layout_marginLeft="16dp"
                 android:layout_toRightOf="@+id/civ_profile_image"
                 android:lines="1"
+                android:singleLine="true"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                tools:text="myApp.info" />
+                tools:text="MyVKApp.info" />
 
             <ImageView
                 android:id="@+id/iv_reposted_icon"
@@ -59,7 +64,9 @@
                 android:textSize="15sp"
                 tools:text="Reposted" />
 
+
         </RelativeLayout>
+
 
     </RelativeLayout>
 
@@ -67,6 +74,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentTop="true"
-        android:background="@color/colorDivider"/>
+        android:background="@color/colorDivider" />
+
 
 </RelativeLayout>
