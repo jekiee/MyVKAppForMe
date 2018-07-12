@@ -22,32 +22,38 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
     @Inject
     MyFragmentManager myFragmentManager;
 
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApplication.getApplicationComponent().inject(this);
-
         setContentView(R.layout.activity_base);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        MyApplication.getApplicationComponent().inject(this);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FrameLayout parent = findViewById(R.id.main_wrapper);
+        FrameLayout parent = (FrameLayout) findViewById(R.id.main_wrapper);
         getLayoutInflater().inflate(getMainContentLayout(), parent);
     }
+
 
     @LayoutRes
     protected abstract int getMainContentLayout();
 
-    public void fragmentOnScreen(BaseFragment fragment) {
-        setToolbarTitle(fragment.createToolbarTitle(this));
+
+    public void fragmentOnScreen(BaseFragment baseFragment) {
+        setToolbarTitle(baseFragment.createToolbarTitle(this));
     }
 
-    public void setToolbarTitle(String title){
-        if(getSupportActionBar() != null){
+
+    private void setToolbarTitle(String title) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(title);
         }
     }
+
 
     public void setContent(BaseFragment fragment) {
         myFragmentManager.setFragment(this, fragment, R.id.main_wrapper);
@@ -64,6 +70,7 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
     public boolean removeFragment(BaseFragment fragment) {
         return myFragmentManager.removeFragment(this, fragment);
     }
+
 
     @Override
     public void onBackPressed() {

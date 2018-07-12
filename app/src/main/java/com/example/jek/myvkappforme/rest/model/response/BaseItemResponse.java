@@ -11,7 +11,7 @@ public class BaseItemResponse<T> {
     public Integer count;
     public List<T> items = new ArrayList<>();
 
-    public Integer getCount(){
+    public Integer getCount() {
         return count;
     }
 

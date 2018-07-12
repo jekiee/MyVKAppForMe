@@ -10,16 +10,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestClient {
     private static final String VK_BASE_URL = "https://api.vk.com/method/";
 
-    private Retrofit mRetrifit;
+    private Retrofit mRetrofit;
 
     public RestClient() {
-        mRetrifit = new Retrofit.Builder()
+        mRetrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(VK_BASE_URL)
                 .build();
     }
 
     public <S> S createService(Class<S> serviceClass) {
-        return mRetrifit.create(serviceClass);
+        return mRetrofit.create(serviceClass);
     }
 }
