@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MyVKAppForAndroid</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+
+    <string name="screen_name_news">News</string>
+    <integer name="com_vk_sdk_AppId">6387193</integer>
+
+</resources>

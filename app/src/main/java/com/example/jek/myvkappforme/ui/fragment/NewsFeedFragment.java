@@ -4,18 +4,15 @@ package com.example.jek.myvkappforme.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.jek.myvkappforme.MyApplication;
 import com.example.jek.myvkappforme.R;
-import com.example.jek.myvkappforme.common.BaseAdapter;
 import com.example.jek.myvkappforme.common.utils.VkListHelper;
 import com.example.jek.myvkappforme.model.WallItem;
 import com.example.jek.myvkappforme.model.view.BaseViewModel;
 import com.example.jek.myvkappforme.model.view.NewsItemBodyViewModel;
+import com.example.jek.myvkappforme.model.view.NewsItemFooterViewModel;
 import com.example.jek.myvkappforme.model.view.NewsItemHeaderViewModel;
 import com.example.jek.myvkappforme.rest.api.WallApi;
 import com.example.jek.myvkappforme.rest.model.request.WallGetRequestModel;
@@ -33,26 +30,18 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsFeedFragment extends BaseFragment {
+public class NewsFeedFragment extends BaseFeedFragment {
 
     @Inject
     WallApi mWallApi;
 
-    RecyclerView mRecyclerView;
 
-    BaseAdapter mAdapter;
 
     public NewsFeedFragment() {
         // Required empty public constructor
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
-        setUpRecyclerView(view);
-        setUpAdapter(mRecyclerView);
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,11 +59,14 @@ public class NewsFeedFragment extends BaseFragment {
             public void onResponse(Call<GetWallResponse> call, Response<GetWallResponse> response) {
                 List<WallItem> wallItems = VkListHelper.getWallList(response.body().response);
                 List<BaseViewModel> list = new ArrayList<>();
+
                 for (WallItem item : wallItems) {
                     list.add(new NewsItemHeaderViewModel(item));
                     list.add(new NewsItemBodyViewModel(item));
+                    list.add(new NewsItemFooterViewModel(item));
                 }
                 mAdapter.addItems(list);
+                Toast.makeText(getActivity(), "Likes: " + response.body().response.getItems().get(0).getLikes().getCount(), Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -82,21 +74,6 @@ public class NewsFeedFragment extends BaseFragment {
                 t.printStackTrace();
             }
         });
-    }
-
-    private void setUpRecyclerView(View rootView) {
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_list);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
-
-    protected void setUpAdapter(RecyclerView rv) {
-        mAdapter = new BaseAdapter();
-        rv.setAdapter(mAdapter);
-    }
-
-    @Override
-    protected int getMainContentLayout() {
-        return R.layout.fragment_feed;
     }
 
     @Override

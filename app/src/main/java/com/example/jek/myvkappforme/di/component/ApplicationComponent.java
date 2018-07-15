@@ -7,6 +7,7 @@ import com.example.jek.myvkappforme.ui.activity.BaseActivity;
 import com.example.jek.myvkappforme.ui.activity.MainActivity;
 import com.example.jek.myvkappforme.ui.fragment.NewsFeedFragment;
 import com.example.jek.myvkappforme.ui.holder.NewsItemBodyHolder;
+import com.example.jek.myvkappforme.ui.holder.NewsItemFooterHolder;
 
 import javax.inject.Singleton;
 
@@ -27,4 +28,6 @@ public interface ApplicationComponent {
 
     //holders
     void inject(NewsItemBodyHolder holder);
+
+    void inject(NewsItemFooterHolder holder);
 }
