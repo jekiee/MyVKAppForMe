@@ -1,5 +1,6 @@
 package com.example.jek.myvkappforme.di.component;
 
+import com.example.jek.myvkappforme.common.manager.NetworkManager;
 import com.example.jek.myvkappforme.di.module.ApplicationModule;
 import com.example.jek.myvkappforme.di.module.ManagerModule;
 import com.example.jek.myvkappforme.di.module.RestModule;
@@ -21,7 +22,6 @@ public interface ApplicationComponent {
 
     //activities
     void inject(BaseActivity activity);
-
     void inject(MainActivity activity);
 
     //fragments
@@ -34,4 +34,7 @@ public interface ApplicationComponent {
 
     //presenters
     void inject(NewsFeedPresenter presenter);
+
+    //managers
+    void inject(NetworkManager manager);
 }

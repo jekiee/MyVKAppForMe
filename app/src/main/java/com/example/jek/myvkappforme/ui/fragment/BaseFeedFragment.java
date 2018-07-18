@@ -5,12 +5,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.jek.myvkappforme.R;
 import com.example.jek.myvkappforme.common.BaseAdapter;
+import com.example.jek.myvkappforme.common.manager.MyLinearLayoutManager;
 import com.example.jek.myvkappforme.model.view.BaseViewModel;
 import com.example.jek.myvkappforme.mvp.presenter.BaseFeedPresenter;
 import com.example.jek.myvkappforme.mvp.view.BaseFeedView;
@@ -49,7 +51,21 @@ public abstract class BaseFeedFragment extends BaseFragment implements BaseFeedV
 
     private void setUpRecyclerView(View rootView) {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_list);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        MyLinearLayoutManager mLinearLayoutManager = new MyLinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                if (mLinearLayoutManager.isOnNextPagePosition()) {
+                    mBaseFeedPresenter.loadNext(mAdapter.getRealItemCount());
+                }
+            }
+        });
+
+        ((SimpleItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
 
     protected void setUpAdapter(RecyclerView rv) {

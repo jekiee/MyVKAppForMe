@@ -40,6 +40,11 @@ public class NewsItemHeaderViewModel extends BaseViewModel{
         return new NewsItemHeaderHolder(view);
     }
 
+    @Override
+    public boolean isItemDecorator() {
+        return true;
+    }
+
     public int getId() {
         return mId;
     }

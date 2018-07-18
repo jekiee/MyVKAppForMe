@@ -1,14 +1,20 @@
 package com.example.jek.myvkappforme.mvp.presenter;
 
+
 import com.arellomobile.mvp.MvpPresenter;
+import com.example.jek.myvkappforme.common.manager.NetworkManager;
 import com.example.jek.myvkappforme.model.view.BaseViewModel;
 import com.example.jek.myvkappforme.mvp.view.BaseFeedView;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
+import io.realm.RealmObject;
 
 public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPresenter<V> {
 
@@ -16,6 +22,10 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
     public static final int NEXT_PAGE_SIZE = 5;
 
     private boolean mIsInLoading;
+
+
+    @Inject
+    NetworkManager mNetworkManager;
 
 
 
@@ -26,7 +36,16 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
         mIsInLoading = true;
 
 
-        onCreateLoadDataObservable(count, offset)
+        mNetworkManager.getNetworkObservable()
+                .flatMap(aBoolean -> {
+                    if (!aBoolean && offset > 0) {
+                        return Observable.empty();
+                    }
+
+                    return aBoolean
+                            ? onCreateLoadDataObservable(count, offset)
+                            : onCreateRestoreDataObservable();
+                })
                 .toList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -48,6 +67,7 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
 
     public abstract Observable<BaseViewModel> onCreateLoadDataObservable(int count, int offset);
 
+    public abstract Observable<BaseViewModel> onCreateRestoreDataObservable();
 
 
     public void loadStart() {
@@ -111,5 +131,10 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
                 getViewState().hideListProgress();
                 break;
         }
+    }
+
+    public void saveToDb(RealmObject item) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(realm1 -> realm1.copyToRealmOrUpdate(item));
     }
 }

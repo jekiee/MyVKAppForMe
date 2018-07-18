@@ -1,6 +1,7 @@
 package com.example.jek.myvkappforme.di.module;
 
 import com.example.jek.myvkappforme.common.manager.MyFragmentManager;
+import com.example.jek.myvkappforme.common.manager.NetworkManager;
 
 import javax.inject.Singleton;
 
@@ -13,5 +14,12 @@ public class ManagerModule {
     @Singleton
     MyFragmentManager provideMyFragmentManager() {
         return new MyFragmentManager();
+    }
+
+
+    @Provides
+    @Singleton
+    NetworkManager provideNetworkManager() {
+        return new NetworkManager();
     }
 }
