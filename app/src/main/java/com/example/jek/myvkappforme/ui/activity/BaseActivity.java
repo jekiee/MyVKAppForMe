@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.example.jek.myvkappforme.MyApplication;
@@ -19,6 +20,7 @@ import javax.inject.Inject;
 
 public abstract class BaseActivity extends MvpAppCompatActivity {
 
+    protected ProgressBar mProgressBar;
 
     @Inject
     MyFragmentManager myFragmentManager;
@@ -30,6 +32,8 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
+        mProgressBar = (ProgressBar) findViewById(R.id.progress);
+
         MyApplication.getApplicationComponent().inject(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -39,6 +43,9 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
         getLayoutInflater().inflate(getMainContentLayout(), parent);
     }
 
+    public ProgressBar getProgressBar() {
+        return mProgressBar;
+    }
 
     @LayoutRes
     protected abstract int getMainContentLayout();

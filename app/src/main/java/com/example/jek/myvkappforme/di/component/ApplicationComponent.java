@@ -3,6 +3,7 @@ package com.example.jek.myvkappforme.di.component;
 import com.example.jek.myvkappforme.di.module.ApplicationModule;
 import com.example.jek.myvkappforme.di.module.ManagerModule;
 import com.example.jek.myvkappforme.di.module.RestModule;
+import com.example.jek.myvkappforme.mvp.presenter.NewsFeedPresenter;
 import com.example.jek.myvkappforme.ui.activity.BaseActivity;
 import com.example.jek.myvkappforme.ui.activity.MainActivity;
 import com.example.jek.myvkappforme.ui.fragment.NewsFeedFragment;
@@ -30,4 +31,7 @@ public interface ApplicationComponent {
     void inject(NewsItemBodyHolder holder);
 
     void inject(NewsItemFooterHolder holder);
+
+    //presenters
+    void inject(NewsFeedPresenter presenter);
 }
